@@ -1,0 +1,40 @@
+{
+  "name": "Smart Find & Replace",
+  "description": "Context-aware find and replace across your content with smart link updates and brand compliance",
+  "version": "1.0.0",
+  "target_type": "stack",
+  "ui_locations": [
+    {
+      "type": "cs_app_dashboard_widget",
+      "meta": [
+        {
+          "path": "/dashboard-widget",
+          "signed": false,
+          "data_type": "JSON"
+        }
+      ]
+    }
+  ],
+  "webhook": {
+    "target_url": "https://your-app-domain.com/webhook",
+    "channel": "contentstack.publish"
+  },
+  "oauth": {
+    "redirect_uri": "https://your-app-domain.com/auth/callback",
+    "enabled": true
+  },
+  "config": {
+    "brandKitId": {
+      "type": "text",
+      "display_name": "Brand Kit ID",
+      "instruction": "Enter your Brand Kit ID for brand compliance checking",
+      "required": false
+    },
+    "defaultOptions": {
+      "type": "json",
+      "display_name": "Default Options",
+      "instruction": "Default settings for find and replace operations",
+      "required": false
+    }
+  }
+}
