@@ -28,7 +28,7 @@ class ContentstackService {
         let hasMore = true;
 
         while (hasMore) {
-          const query = this.stack.contentType(contentType).entry()
+          const query = this.stack.contentType(contentType)
             .query()
             .locale(locale)
             .skip(skip)
