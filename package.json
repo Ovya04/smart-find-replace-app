@@ -1,13 +1,27 @@
 {
-  "name": "smart-find-replace-app",
+  "name": "smart-find-replace-frontend",
   "version": "1.0.0",
-  "scripts": {
-    "install": "cd frontend && npm install",
-    "build": "cd frontend && npm run build",
-    "start": "cd frontend && npm start"
+  "description": "Frontend for Smart Find & Replace Contentstack App",
+  "dependencies": {
+    "@contentstack/app-sdk": "^2.1.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.8.0"
   },
-  "workspaces": [
-    "frontend",
-    "backend"
-  ]
+  "scripts": {
+    "start": "webpack serve --mode development",
+    "build": "webpack --mode production",
+    "test": "jest"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.28.4",
+    "@babel/preset-env": "^7.28.3",
+    "@babel/preset-react": "^7.27.1",
+    "babel-loader": "^9.2.1",
+    "css-loader": "^6.11.0",
+    "style-loader": "^3.3.4",
+    "webpack": "^5.89.0",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^4.15.1"
+  }
 }
