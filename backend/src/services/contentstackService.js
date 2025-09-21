@@ -7,8 +7,8 @@ class ContentstackService {
   }
 
   initialize(authtoken, apiKey) {
-    this.client = contentstack.client({ authtoken });
-    this.stack = this.client.stack({ api_key: apiKey });
+    this.client = contentstack.client({ authtoken:process.env.CONTENTSTACK_AUTH_TOKEN  });
+    this.stack = this.client.stack({ api_key: process.env.CONTENTSTACK_API_KEY });
   }
 
   // Fetch all entries for processing
