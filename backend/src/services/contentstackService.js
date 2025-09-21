@@ -13,53 +13,37 @@ class ContentstackService {
 
   // Fetch all entries for processing
   async fetchAllEntries(contentTypes = [], locale = 'en-us') {
-    const allEntries = [];
-    
-    try {
-      if (contentTypes.length === 0) {
-        // Get all content types first
-        const contentTypeResponse = await this.stack.contentType().query().find();
-        contentTypes = contentTypeResponse.items.map(ct => ct.uid);
-      }
+  const allEntries = [];
 
-      for (const contentType of contentTypes) {
-        let skip = 0;
-        const limit = 100;
-        let hasMore = true;
-
-        while (hasMore) {
-          const query = this.stack.contentType(contentType)
-            .query()
-            .locale(locale)
-            .skip(skip)
-            .limit(limit)
-            .includeMetadata()
-            .includeReference(['title', 'url']);
-
-          const response = await query.find();
-          
-          if (response.items && response.items.length > 0) {
-            allEntries.push(...response.items.map(entry => ({
-              ...entry,
-              content_type_uid: contentType
-            })));
-            skip += limit;
-          } else {
-            hasMore = false;
-          }
-
-          if (response.items.length < limit) {
-            hasMore = false;
-          }
-        }
-      }
-
-      return allEntries;
-    } catch (error) {
-      console.error('Error fetching entries:', error);
-      throw error;
+  try {
+    if (contentTypes.length === 0) {
+      // Get all content types first (using management SDK)
+      const contentTypesResponse = await this.stack.contentTypes().query().find();
+      contentTypes = contentTypesResponse.items.map(ct => ct.uid);
     }
+
+    for (const contentTypeUid of contentTypes) {
+      const contentType = await this.stack.contentType(contentTypeUid).fetch();
+
+      const entries = await contentType.entries().query()
+        .locale(locale)
+        .limit(100)
+        .find();
+
+      if (entries.items && entries.items.length) {
+        allEntries.push(...entries.items.map(item => ({
+          ...item,
+          content_type_uid: contentTypeUid,
+        })));
+      }
+    }
+
+    return allEntries;
+  } catch (error) {
+    console.error('Error fetching entries:', error);
+    throw error;
   }
+}
 
   // Process Rich Text fields
   processRichText(richTextData, findTerm, replaceTerm, options = {}) {
