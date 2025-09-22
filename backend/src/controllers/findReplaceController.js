@@ -10,7 +10,7 @@ const ReplacementLog = require('../models/ReplacementLog');
 router.post('/scan', async (req, res) => {
   try {
     const {
-      authtoken,
+      
       apiKey,
       findTerm,
       replaceTerm,

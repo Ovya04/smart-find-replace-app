@@ -16,7 +16,7 @@ app.use(express.urlencoded({ extended: true }));
 
 
 app.use(cors({
-  origin: ['https://app.contentstack.com', 'smart-find-replace-frontend.eu-contentstackapps.com'],
+  origin: ['https://app.contentstack.com', 'smart-find-replace-frontend.eu-contentstackapps.com','http://localhost:3000'],
   credentials: true,
 }));
 

@@ -65,7 +65,7 @@ function App() {
         },
         body: JSON.stringify({
           ...formData,
-          authtoken: appSdk.authtoken,
+          
           apiKey: appSdk.stack.api_key
         })
       });
